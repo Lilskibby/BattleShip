@@ -5,7 +5,7 @@ public class Ships
 {
     ArrayList<Space> Ship = new ArrayList<>();
 
-    public Ships(String spaceFrom, String spaceTo, Board board, String board1, int size)
+    public Ships(String spaceFrom, String spaceTo, Board board, String board1)
     {
         int index1row = 0;
         int index1col = Integer.parseInt(spaceFrom.substring(1, 2));
@@ -78,6 +78,7 @@ public class Ships
                     for (int i = index1row; i <= index2row; i++) {
                         board.player1SelfBoard[i][index1col] = new Space("" + ConsoleColors.BLACK_BACKGROUND + "   " + ConsoleColors.RESET);
                         board.player1SelfBoard[i][index1col].containsShip = true;
+                        Ship.add(board.player1SelfBoard[i][index1col]);
                     }
                 }
                 else
@@ -86,31 +87,65 @@ public class Ships
                     {
                         board.player1SelfBoard[index1row][i] = new Space("" + ConsoleColors.BLACK_BACKGROUND + "   " + ConsoleColors.RESET);
                         board.player1SelfBoard[index1row][i].containsShip = true;
+                        Ship.add(board.player1SelfBoard[index1row][i]);
                     }
                 }
                 break;
             case "player2SelfBoard":
-                for (int i = index1row; i < index2row; i++) {
-                    for (int j = index1col; j < index2col; j++) {
-                        board.player2SelfBoard[i][j] = new Space(" " + "\\u2b1b" + " ");
-                        board.player2SelfBoard[i][j].containsShip = true;
+                if(index1col == index2col)
+                {
+                    for (int i = index1row; i <= index2row; i++) {
+                        board.player2SelfBoard[i][index1col] = new Space("" + ConsoleColors.BLACK_BACKGROUND + "   " + ConsoleColors.RESET);
+                        board.player2SelfBoard[i][index1col].containsShip = true;
+                        Ship.add(board.player1SelfBoard[i][index1col]);
+                    }
+                }
+                else
+                {
+                    for (int i = index1col; i <= index2col; i++)
+                    {
+                        board.player2SelfBoard[index1row][i] = new Space("" + ConsoleColors.BLACK_BACKGROUND + "   " + ConsoleColors.RESET);
+                        board.player2SelfBoard[index1row][i].containsShip = true;
+                        Ship.add(board.player1SelfBoard[index1row][i]);
                     }
                 }
                 break;
             case "player1opponentBoard":
-                for (int i = index1row; i < index2row; i++) {
-                    for (int j = index1col; j < index2col; j++) {
-                        board.player1opponentBoard[i][j] = new Space(" " + "\\u2b1b" + " ");
-                        board.player1opponentBoard[i][j].containsShip = true;
+                if(index1col == index2col)
+                {
+                    for (int i = index1row; i <= index2row; i++) {
+                        board.player1opponentBoard[i][index1col] = new Space("" + ConsoleColors.BLACK_BACKGROUND + "   " + ConsoleColors.RESET);
+                        board.player1opponentBoard[i][index1col].containsShip = true;
+                        Ship.add(board.player1SelfBoard[i][index1col]);
+                    }
+                }
+                else
+                {
+                    for (int i = index1col; i <= index2col; i++)
+                    {
+                        board.player1opponentBoard[index1row][i] = new Space("" + ConsoleColors.BLACK_BACKGROUND + "   " + ConsoleColors.RESET);
+                        board.player1opponentBoard[index1row][i].containsShip = true;
+                        Ship.add(board.player1SelfBoard[index1row][i]);
                     }
                 }
 
                 break;
             case "player2opponentBoard":
-                for (int i = index1row; i < index2row; i++) {
-                    for (int j = index1col; j < index2col; j++) {
-                        board.player2opponentBoard[i][j] = new Space(" " + "\\u2b1b" + " ");
-                        board.player2opponentBoard[i][j].containsShip = true;
+                if(index1col == index2col)
+                {
+                    for (int i = index1row; i <= index2row; i++) {
+                        board.player2opponentBoard[i][index1col] = new Space("" + ConsoleColors.BLACK_BACKGROUND + "   " + ConsoleColors.RESET);
+                        board.player2opponentBoard[i][index1col].containsShip = true;
+                        Ship.add(board.player1SelfBoard[i][index1col]);
+                    }
+                }
+                else
+                {
+                    for (int i = index1col; i <= index2col; i++)
+                    {
+                        board.player2opponentBoard[index1row][i] = new Space("" + ConsoleColors.BLACK_BACKGROUND + "   " + ConsoleColors.RESET);
+                        board.player2opponentBoard[index1row][i].containsShip = true;
+                        Ship.add(board.player1SelfBoard[index1row][i]);
                     }
                 }
 

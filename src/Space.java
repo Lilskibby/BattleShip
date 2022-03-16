@@ -20,6 +20,16 @@ public class Space
 
     }
 
+    public void hit()
+    {
+        val = ConsoleColors.RED_BACKGROUND + "   " + ConsoleColors.RESET;
+    }
+
+    public void miss()
+    {
+        val = ConsoleColors.WHITE_BACKGROUND + "   " + ConsoleColors.RESET;
+    }
+
     public String toString()
     {
         return val;
