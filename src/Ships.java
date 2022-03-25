@@ -38,6 +38,18 @@ public class Ships
         {
             index1row = 7;
         }
+        if(temp.equals("H"))
+        {
+            index1row = 8;
+        }
+        if(temp.equals("I"))
+        {
+            index1row = 9;
+        }
+        if(temp.equals("J"))
+        {
+            index1row = 10;
+        }
         int index2row = 0;
         int index2col = Integer.parseInt(spaceTo.substring(1, 2));
         temp = spaceTo.substring(0, 1);
@@ -68,6 +80,18 @@ public class Ships
         if(temp.equals("G"))
         {
             index2row = 7;
+        }
+        if(temp.equals("H"))
+        {
+            index2row = 8;
+        }
+        if(temp.equals("I"))
+        {
+            index2row = 9;
+        }
+        if(temp.equals("J"))
+        {
+            index2row = 10;
         }
         switch (board1)
         {
@@ -151,5 +175,105 @@ public class Ships
 
                 break;
         }
+    }
+
+    public static int shipLength(String spaceFrom, String spaceTo)
+    {
+        int index1row = 0;
+        int index1col = Integer.parseInt(spaceFrom.substring(1, 2));
+        String temp = spaceFrom.substring(0, 1);
+        if(temp.equals("A"))
+        {
+            index1row = 1;
+        }
+        if(temp.equals("B"))
+        {
+            index1row = 2;
+        }
+        if(temp.equals("C"))
+        {
+            index1row = 3;
+        }
+        if(temp.equals("D"))
+        {
+            index1row = 4;
+        }
+        if(temp.equals("E"))
+        {
+            index1row = 5;
+        }
+        if(temp.equals("F"))
+        {
+            index1row = 6;
+        }
+        if(temp.equals("G"))
+        {
+            index1row = 7;
+        }
+        if(temp.equals("H"))
+        {
+            index1row = 8;
+        }
+        if(temp.equals("I"))
+        {
+            index1row = 9;
+        }
+        if(temp.equals("J"))
+        {
+            index1row = 10;
+        }
+        int index2row = 0;
+        int index2col = Integer.parseInt(spaceTo.substring(1, 2));
+        temp = spaceTo.substring(0, 1);
+        if(temp.equals("A"))
+        {
+            index2row = 1;
+        }
+        if(temp.equals("B"))
+        {
+            index2row = 2;
+        }
+        if(temp.equals("C"))
+        {
+            index2row = 3;
+        }
+        if(temp.equals("D"))
+        {
+            index2row = 4;
+        }
+        if(temp.equals("E"))
+        {
+            index2row = 5;
+        }
+        if(temp.equals("F"))
+        {
+            index2row = 6;
+        }
+        if(temp.equals("G"))
+        {
+            index2row = 7;
+        }
+        if(temp.equals("H"))
+        {
+            index2row = 8;
+        }
+        if(temp.equals("I"))
+        {
+            index2row = 9;
+        }
+        if(temp.equals("J"))
+        {
+            index2row = 10;
+        }
+
+        if(index1col == index2col)
+        {
+            return index2row - index1row + 1;
+        }
+        else if(index1row == index2row)
+        {
+            return index2col - index1col + 1;
+        }
+        return 0;
     }
 }
