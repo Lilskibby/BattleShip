@@ -93,7 +93,7 @@ public class Board
         player2SelfBoard[0][3] = new Space(" 3 ");
         player2SelfBoard[0][4] = new Space(" 4 ");
         player2SelfBoard[0][5] = new Space(" 5 ");
-        player2SelfBoard[0][6] = new Space(" 6");
+        player2SelfBoard[0][6] = new Space(" 6 ");
         player2SelfBoard[0][7] = new Space(" 7 ");
         player2SelfBoard[0][8] = new Space(" 8 ");
         player2SelfBoard[0][9] = new Space(" 9 ");
@@ -103,7 +103,7 @@ public class Board
         player1opponentBoard[0][3] = new Space(" 3 ");
         player1opponentBoard[0][4] = new Space(" 4 ");
         player1opponentBoard[0][5] = new Space(" 5 ");
-        player1opponentBoard[0][6] = new Space(" 6");
+        player1opponentBoard[0][6] = new Space(" 6 ");
         player1opponentBoard[0][7] = new Space(" 7 ");
         player1opponentBoard[0][8] = new Space(" 8 ");
         player1opponentBoard[0][9] = new Space(" 9 ");
@@ -113,7 +113,7 @@ public class Board
         player2opponentBoard[0][3] = new Space(" 3 ");
         player2opponentBoard[0][4] = new Space(" 4 ");
         player2opponentBoard[0][5] = new Space(" 5 ");
-        player2opponentBoard[0][6] = new Space(" 6");
+        player2opponentBoard[0][6] = new Space(" 6 ");
         player2opponentBoard[0][7] = new Space(" 7 ");
         player2opponentBoard[0][8] = new Space(" 8 ");
         player2opponentBoard[0][9] = new Space(" 9 ");
@@ -136,9 +136,37 @@ public class Board
         }
     }
 
+    public void printPlayer1opponentBoard()
+    {
+        for(Space[] spaces : player1opponentBoard)
+        {
+            for(Space space : spaces)
+            {
+                System.out.print("|" + space);
+            }
+            System.out.println("|");
+            System.out.println("---------------------------------------------");
+
+        }
+    }
+
     public void printPlayer2SelfBoard()
     {
         for(Space[] spaces : player2SelfBoard)
+        {
+            for(Space space : spaces)
+            {
+                System.out.print("|" + space);
+            }
+            System.out.println("|");
+            System.out.println("---------------------------------------------");
+
+        }
+    }
+
+    public void printPlayer2opponentBoard()
+    {
+        for(Space[] spaces : player2opponentBoard)
         {
             for(Space space : spaces)
             {

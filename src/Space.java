@@ -23,11 +23,13 @@ public class Space
     public void hit()
     {
         val = ConsoleColors.RED_BACKGROUND + "   " + ConsoleColors.RESET;
+        containsHit = true;
     }
 
     public void miss()
     {
         val = ConsoleColors.WHITE_BACKGROUND + "   " + ConsoleColors.RESET;
+        containsMiss = true;
     }
 
     public String toString()
