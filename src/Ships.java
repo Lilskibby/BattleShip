@@ -3,7 +3,9 @@ import java.util.ArrayList;
 
 public class Ships
 {
-    private String type;
+    private final String type;
+    public boolean sunk = false;
+    public int length;
 
     public ArrayList<Space> getShip() {
         return Ship;
@@ -181,6 +183,12 @@ public class Ships
                 }
 
                 break;
+        }
+        switch (type) {
+            case "Carrier" -> length = 5;
+            case "BattleShip" -> length = 4;
+            case "Cruiser", "Submarine" -> length = 3;
+            case "Destroyer" -> length = 2;
         }
     }
 

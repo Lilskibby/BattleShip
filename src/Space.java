@@ -5,6 +5,7 @@ public class Space
     public boolean containsHit;
     public String val = "   ";
 
+
     public Space(String val)
     {
         this.val = val;

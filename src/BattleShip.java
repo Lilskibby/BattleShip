@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class BattleShip
 {
-    ArrayList<Ships> player1Ships = new ArrayList<>();
-    ArrayList<Ships> player2Ships = new ArrayList<>();
+    public ArrayList<Ships> player1Ships = new ArrayList<>();
+    public ArrayList<Ships> player2Ships = new ArrayList<>();
     public Ships player1Carrier;
     public Ships player2Carrier;
     public Ships player1Battleship;
@@ -745,26 +745,26 @@ public class BattleShip
         }
     }
 
-    public Ships getPlayer1Carrier() {
+    public Ships getPlayer1Carrier()
+    {
         return player1Carrier;
     }
 
     public int getPlayer1hits()
     {
         int count = 0;
-        for(Ships ship : player1Ships)
-        {
-            try {
-                for(Space space : ship.getShip())
-                {
-                    if(space.containsHit)
-                    {
-                        count++;
-                    }
+
+        for (Ships player1Ship : player1Ships) {
+            int shipCount = 0;
+            for (int j = 0; j < player1Ship.length; j++) {
+                if (player1Ship.getShip().get(j).containsHit) {
+                    shipCount++;
+                    count++;
                 }
-            }
-            catch(Exception e) {
-                //
+                if (shipCount == player1Ship.getShip().size() && !player1Ship.sunk) {
+                    System.out.println("You sunk their " + player1Ship.getType());
+                    player1Ship.sunk = true;
+                }
             }
         }
         return count;
@@ -774,25 +774,21 @@ public class BattleShip
     {
         int count = 0;
 
-        for(Ships ship : player2Ships)
+        for (Ships player2Ship : player2Ships)
         {
             int shipCount = 0;
-            try {
-                for(Space space : ship.getShip())
+            for (int j = 0; j < player2Ship.length; j++)
+            {
+                if (player2Ship.getShip().get(j).containsHit)
                 {
-                    if(space.containsHit)
-                    {
-                        shipCount++;
-                        count++;
-                    }
-                    if(shipCount == ship.getShip().size())
-                    {
-                        System.out.println("You sunk their " + ship.getType());
-                    }
+                    shipCount++;
+                    count++;
                 }
-            }
-            catch(Exception e) {
-                //
+                if (shipCount == player2Ship.getShip().size() && !player2Ship.sunk)
+                {
+                    System.out.println("You sunk their " + player2Ship.getType());
+                    player2Ship.sunk = true;
+                }
             }
         }
         return count;
