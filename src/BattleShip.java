@@ -27,17 +27,7 @@ public class BattleShip
 
     public void start()
     {
-        player1Ships.add(player1Carrier);
-        player1Ships.add(player1Battleship);
-        player1Ships.add(player1Cruiser);
-        player1Ships.add(player1Submarine);
-        player1Ships.add(player1Destroyer);
 
-        player2Ships.add(player2Carrier);
-        player2Ships.add(player2Battleship);
-        player2Ships.add(player2Cruiser);
-        player2Ships.add(player2Submarine);
-        player2Ships.add(player2Destroyer);
 
 
 
@@ -601,6 +591,18 @@ public class BattleShip
         }
         player2Destroyer = new Ships(temp1, temp2, woo, "player2SelfBoard", "Destroyer");
         woo.printPlayer2SelfBoard();
+
+        player1Ships.add(player1Carrier);
+        player1Ships.add(player1Battleship);
+        player1Ships.add(player1Cruiser);
+        player1Ships.add(player1Submarine);
+        player1Ships.add(player1Destroyer);
+
+        player2Ships.add(player2Carrier);
+        player2Ships.add(player2Battleship);
+        player2Ships.add(player2Cruiser);
+        player2Ships.add(player2Submarine);
+        player2Ships.add(player2Destroyer);
     }
 
     public void takeTurn()
@@ -754,18 +756,22 @@ public class BattleShip
         int count = 0;
         for(Ships ship : player1Ships)
         {
-            try {
+
                 for(Space space : ship.getShip())
                 {
+                    int shipCount = 0;
                     if(space.containsHit)
                     {
+                        shipCount++;
                         count++;
                     }
+                    if(shipCount == ship.getShip().size() && !ship.isSunk())
+                    {
+                        System.out.println("You sunk their " + ship.getType());
+                        ship.setSunk(false);
+                    }
                 }
-            }
-            catch(Exception e) {
-                //
-            }
+
         }
         return count;
     }
@@ -777,7 +783,7 @@ public class BattleShip
         for(Ships ship : player2Ships)
         {
             int shipCount = 0;
-            try {
+
                 for(Space space : ship.getShip())
                 {
                     if(space.containsHit)
@@ -785,15 +791,14 @@ public class BattleShip
                         shipCount++;
                         count++;
                     }
-                    if(shipCount == ship.getShip().size())
+                    if(shipCount == ship.getShip().size() && !ship.isSunk())
                     {
                         System.out.println("You sunk their " + ship.getType());
+                        ship.setSunk(false);
                     }
                 }
-            }
-            catch(Exception e) {
-                //
-            }
+
+
         }
         return count;
     }

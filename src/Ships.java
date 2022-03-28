@@ -5,6 +5,16 @@ public class Ships
 {
     private String type;
 
+    public boolean isSunk() {
+        return sunk;
+    }
+
+    public void setSunk(boolean sunk) {
+        this.sunk = sunk;
+    }
+
+    private boolean sunk;
+
     public ArrayList<Space> getShip() {
         return Ship;
     }
