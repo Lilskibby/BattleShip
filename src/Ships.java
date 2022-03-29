@@ -1,10 +1,23 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-
+/**
+ This class represents an arragnemnt of spaces that makes up a ship.
+ @author Max Klot
+ */
 public class Ships
 {
+    /**
+     Type of ship it is
+     */
     private final String type;
+    /**
+       Whetehr or not its sunk
+     */
     public boolean sunk = false;
+
+    /**
+     length of ship
+     */
     public int length;
 
     public boolean isSunk() {
@@ -15,14 +28,25 @@ public class Ships
         this.sunk = sunk;
     }
 
-    private boolean sunk;
+
 
     public ArrayList<Space> getShip() {
         return Ship;
     }
 
+    /**
+     arraylist of spaces
+     */
     ArrayList<Space> Ship = new ArrayList<>();
 
+    /**
+     constructor, draws ships on board.
+     @param spaceFrom   where ship starts
+     @param spaceTo where ship ends
+     @param  board which board
+     @param board1 which board in the board
+     @param type type of ship it is
+     */
     public Ships(String spaceFrom, String spaceTo, Board board, String board1, String type)
     {
         this.type = type;
@@ -202,6 +226,10 @@ public class Ships
         }
     }
 
+    /**
+     calculates row idx from string input
+     @returns row index
+     */
     public static int getRowIdx(String temp)
     {
         temp = temp.substring(0, 1);
@@ -249,6 +277,10 @@ public class Ships
         return index1row;
     }
 
+    /**
+     calculates length of ship!
+     @returns length of ship.
+     */
     public static int shipLength(String spaceFrom, String spaceTo)
     {
         int index1row = 0;

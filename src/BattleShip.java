@@ -1,7 +1,10 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+    This class is the main logic for the BattleShip game
+    @author Max Klot
+ */
 public class BattleShip
 {
     public ArrayList<Ships> player1Ships = new ArrayList<>();
@@ -16,33 +19,23 @@ public class BattleShip
     public Ships player2Submarine;
     public Ships player1Destroyer;
     public Ships player2Destroyer;
-    public String player1Name;
-    public String player2Name;
+    public String player1Name = "";
+    public String player2Name = "";
     public Board woo = new Board();
     public Scanner scan = new Scanner(System.in);
-    public int player1hits = 0;
-    public int player2hits = 0;
+    private boolean player1won = false;
+    private boolean player2won = false;
 
     private String player = "player1";
 
+    /**
+        This method starts the program and places the ships.
+     */
     public void start()
     {
-        player1Ships.add(player1Carrier);
-        player1Ships.add(player1Battleship);
-        player1Ships.add(player1Cruiser);
-        player1Ships.add(player1Submarine);
-        player1Ships.add(player1Destroyer);
-
-        player2Ships.add(player2Carrier);
-        player2Ships.add(player2Battleship);
-        player2Ships.add(player2Cruiser);
-        player2Ships.add(player2Submarine);
-        player2Ships.add(player2Destroyer);
 
 
 
-        String player1Name;
-        String player2Name;
         woo.initializeAllBoards();
         //NOTE: PLAY IN DARK MODE FOR FULL EFFECT.
         /*
@@ -57,9 +50,9 @@ public class BattleShip
          */
         System.out.println("Welcome to BattleShip! Play in darkmode and caps lock for full effect.");
         System.out.println("Player one name: ");
-        player1Name = scan.nextLine();
+        this.player1Name = scan.nextLine();
         System.out.println("Player two name: ");
-        player2Name = scan.nextLine();
+        this.player2Name = scan.nextLine();
 
 
 
@@ -333,6 +326,11 @@ public class BattleShip
         player1Destroyer = new Ships(temp1, temp2, woo, "player1SelfBoard", "Destroyer");
         woo.printPlayer1SelfBoard();
 
+        player1Ships.add(player1Carrier);
+        player1Ships.add(player1Battleship);
+        player1Ships.add(player1Cruiser);
+        player1Ships.add(player1Submarine);
+        player1Ships.add(player1Destroyer);
 
         System.out.println(player2Name + ", you will now place your ships. Follow the directions; you will enter the spots of the start and end of your ship. Only place ships horizontally or vertically");
         woo.printPlayer2SelfBoard();
@@ -601,12 +599,20 @@ public class BattleShip
         }
         player2Destroyer = new Ships(temp1, temp2, woo, "player2SelfBoard", "Destroyer");
         woo.printPlayer2SelfBoard();
+
+
+        player2Ships.add(player2Carrier);
+        player2Ships.add(player2Battleship);
+        player2Ships.add(player2Cruiser);
+        player2Ships.add(player2Submarine);
+        player2Ships.add(player2Destroyer);
     }
 
+    /*
+        This method is reused to take a turn.
+     */
     public void takeTurn()
     {
-        String playerSelfBoard;
-        String playerOpponentBoard;
         if(player.equals(("player1")))
         {
             System.out.println("Your own board: ");
@@ -620,7 +626,7 @@ public class BattleShip
                 int colIdx;
                 String input = scan.nextLine();
                 rowIdx = Ships.getRowIdx(input);
-                colIdx = Integer.parseInt(input.substring(1, 2));
+                colIdx = Integer.parseInt(input.substring(1, input.length()));
                 if (Integer.parseInt(input.substring(1, input.length())) > 10 || (!input.substring(0, 1).equals("A")
                         && !input.substring(0, 1).equals("B")
                         && !input.substring(0, 1).equals("C")
@@ -639,20 +645,19 @@ public class BattleShip
                 }
                 else
                 {
+                    if (woo.player2SelfBoard[rowIdx][colIdx].containsShip)
+                    {
+                        woo.player2SelfBoard[rowIdx][colIdx].hit();
+                        woo.player1opponentBoard[rowIdx][colIdx].hit();
+                        System.out.println("Hit!");
+                        System.out.println(whichShipSankP2());
+                    }
+                    else
+                    {
+                        woo.player1opponentBoard[rowIdx][colIdx].miss();
+                        System.out.println("Miss!");
+                    }
                     bool = false;
-                }
-                rowIdx = Ships.getRowIdx(input);
-                colIdx = Integer.parseInt(input.substring(1, 2));
-                if (woo.player2SelfBoard[rowIdx][colIdx].containsShip)
-                {
-                    woo.player2SelfBoard[rowIdx][colIdx].hit();
-                    woo.player1opponentBoard[rowIdx][colIdx].hit();
-                    System.out.println("Hit!");
-                }
-                else
-                {
-                    woo.player1opponentBoard[rowIdx][colIdx].miss();
-                    System.out.println("Miss!");
                 }
             }
         }
@@ -669,8 +674,8 @@ public class BattleShip
                 int colIdx;
                 String input = scan.nextLine();
                 rowIdx = Ships.getRowIdx(input);
-                colIdx = Integer.parseInt(input.substring(1, 2));
-                if (Integer.parseInt(input.substring(1, 2)) > 10 || (!input.substring(0, 1).equals("A")
+                colIdx = Integer.parseInt(input.substring(1, input.length()));
+                if (Integer.parseInt(input.substring(1, input.length())) > 10 || (!input.substring(0, 1).equals("A")
                         && !input.substring(0, 1).equals("B")
                         && !input.substring(0, 1).equals("C")
                         && !input.substring(0, 1).equals("D")
@@ -679,7 +684,7 @@ public class BattleShip
                         && !input.substring(0, 1).equals("G")
                         && !input.substring(0, 1).equals("H")
                         && !input.substring(0, 1).equals("I")
-                        && !input.substring(0, 1).equals("J")) || input.length() > 2) {
+                        && !input.substring(0, 1).equals("J")) || input.length() > 3) {
                     System.out.println("Invalid selection. Pick again.");
                 }
                 else if(woo.player1SelfBoard[rowIdx][colIdx].containsHit || woo.player1SelfBoard[rowIdx][colIdx].containsMiss)
@@ -688,20 +693,20 @@ public class BattleShip
                 }
                 else
                 {
+                    if (woo.player1SelfBoard[rowIdx][colIdx].containsShip)
+                    {
+                        woo.player1SelfBoard[rowIdx][colIdx].hit();
+                        woo.player2opponentBoard[rowIdx][colIdx].hit();
+                        System.out.println("Hit!");
+                        System.out.println(whichShipSankP1());
+
+                    }
+                    else
+                    {
+                        woo.player2opponentBoard[rowIdx][colIdx].miss();
+                        System.out.println("Miss!");
+                    }
                     bool = false;
-                }
-                rowIdx = Ships.getRowIdx(input);
-                colIdx = Integer.parseInt(input.substring(1, 2));
-                if (woo.player1SelfBoard[rowIdx][colIdx].containsShip)
-                {
-                    woo.player1SelfBoard[rowIdx][colIdx].hit();
-                    woo.player2opponentBoard[rowIdx][colIdx].hit();
-                    System.out.println("Hit!");
-                }
-                else
-                {
-                    woo.player2opponentBoard[rowIdx][colIdx].miss();
-                    System.out.println("Miss!");
                 }
             }
         }
@@ -715,21 +720,76 @@ public class BattleShip
         }
     }
 
+    /**
+        Helper method to tell whether or not a ship has sunk.
+        @returns If ship has sunk
+     */
+    public String whichShipSankP1()
+    {
+
+        String ret = "";
+        for(Ships ship : player1Ships)
+        {
+            int count = 0;
+            for(Space space : ship.getShip())
+            {
+                if(space.containsHit)
+                {
+                    count++;
+                }
+            }
+            if(count == ship.getShip().size() && !ship.sunk)
+            {
+                ret = "You sunk their " + ship.getType();
+                ship.sunk = true;
+                return ret;
+            }
+        }
+        return ret;
+    }
+
+    /**
+        Helper method to tell whether or not a ship has sunk.
+        @returns If ship has sunk
+     */
+    public String whichShipSankP2()
+    {
+        String ret = "";
+        for(Ships ship : player2Ships)
+        {
+            int count = 0;
+            for(Space space : ship.getShip())
+            {
+                if(space.containsHit)
+                {
+                    count++;
+                }
+            }
+            if(count == ship.getShip().size() && !ship.sunk)
+            {
+                ret = "You sunk their " + ship.getType();
+                ship.sunk = true;
+                return ret;
+            }
+        }
+        return ret;
+    }
+
+    /**
+        Condensed logic for play.
+     */
     public void play()
     {
-        boolean player1won = false;
-        boolean player2won = false;
         start();
 
         while(!player1won && !player2won)
         {
             takeTurn();
-
-            if(getPlayer1hits() == 17)
+            if(checkifSunkPlayer1())
             {
                 player2won = true;
             }
-            else if(getPlayer1hits() == 17)
+            else if(checkifSunkPlayer2())
             {
                 player1won = true;
             }
@@ -745,52 +805,42 @@ public class BattleShip
         }
     }
 
-    public Ships getPlayer1Carrier()
+
+    /**
+        Helper method to see if game was won
+        @returns whether or not game was won
+     */
+    public boolean checkifSunkPlayer1()
     {
-        return player1Carrier;
-    }
-
-    public int getPlayer1hits()
-    {
-        int count = 0;
-
-        for (Ships player1Ship : player1Ships) {
-            int shipCount = 0;
-            for (int j = 0; j < player1Ship.length; j++) {
-                if (player1Ship.getShip().get(j).containsHit) {
-                    shipCount++;
-                    count++;
-                }
-                if (shipCount == player1Ship.getShip().size() && !player1Ship.sunk) {
-                    System.out.println("You sunk their " + player1Ship.getType());
-                    player1Ship.sunk = true;
-                }
-            }
-        }
-        return count;
-    }
-
-    public int getPlayer2hits()
-    {
-        int count = 0;
-
-        for (Ships player2Ship : player2Ships)
+        for(Ships ship : player1Ships)
         {
-            int shipCount = 0;
-            for (int j = 0; j < player2Ship.length; j++)
+            for(Space space : ship.getShip())
             {
-                if (player2Ship.getShip().get(j).containsHit)
+                if(!space.containsHit)
                 {
-                    shipCount++;
-                    count++;
-                }
-                if (shipCount == player2Ship.getShip().size() && !player2Ship.sunk)
-                {
-                    System.out.println("You sunk their " + player2Ship.getType());
-                    player2Ship.sunk = true;
+                    return false;
                 }
             }
         }
-        return count;
+        return true;
+    }
+
+    /**
+     Helper method to see if game was won
+     @returns whether or not game was won
+     */
+    public boolean checkifSunkPlayer2()
+    {
+        for(Ships ship : player2Ships)
+        {
+            for(Space space : ship.getShip())
+            {
+                if(!space.containsHit)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

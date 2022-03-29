@@ -1,11 +1,30 @@
+
+/**
+ This class represents the different boards in the game.
+ @author Max Klot
+ */
 public class Board
 {
-    //printBoards
+    /**
+     self board for player1
+     */
     public Space[][] player1SelfBoard = new Space[11][11];
+    /**
+     opponent board for player1
+     */
     public Space[][] player1opponentBoard = new Space[11][11];
+    /**
+     self board for player2
+     */
     public Space[][] player2SelfBoard = new Space[11][11];
+    /**
+     opponent board for player2
+     */
     public Space[][] player2opponentBoard = new Space[11][11];
 
+    /**
+     initializes all board with default values.
+     */
     public void initializeAllBoards()
     {
         for(int i = 0; i < player1SelfBoard.length; i++)
@@ -122,6 +141,9 @@ public class Board
 
     }
 
+    /**
+     prints player1SelfBoard
+     */
     public void printPlayer1SelfBoard()
     {
         for(Space[] spaces : player1SelfBoard)
@@ -136,6 +158,9 @@ public class Board
         }
     }
 
+    /**
+     prints player1opponentBoard
+     */
     public void printPlayer1opponentBoard()
     {
         for(Space[] spaces : player1opponentBoard)
@@ -150,6 +175,9 @@ public class Board
         }
     }
 
+    /**
+     prints player2SelfBoard
+     */
     public void printPlayer2SelfBoard()
     {
         for(Space[] spaces : player2SelfBoard)
@@ -164,6 +192,9 @@ public class Board
         }
     }
 
+    /**
+     prints player2opponentBoard
+     */
     public void printPlayer2opponentBoard()
     {
         for(Space[] spaces : player2opponentBoard)
